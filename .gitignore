@@ -6,6 +6,9 @@
 *.ko
 *.obj
 *.elf
+.vcxproj
+.vcxproj.filters
+.vcxproj.user
 
 # Linker output
 *.ilk

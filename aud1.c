@@ -5,6 +5,7 @@ typedef struct
 {
 	double value_;
 	struct List* next;
+	struct List* previous;
 } List;
 
 void AddRandomValue(List* list)
@@ -14,28 +15,37 @@ void AddRandomValue(List* list)
 
 	list->next = (List*)malloc(sizeof(List));
 	list = list->next;
-	list->value_ = rand();
+	list->next = NULL;
+	list->value_ = rand() % 100;
 
 }
 
 void AddBeforeValue(List* list, double myvalue)
 {
-	List* ptr, *ptr1;
+	List* prev, *pt = NULL;
+	int flag = 0;
 	while (list->value_ != myvalue)
 	{
 		if (list->next != NULL)
 		{
-			ptr = list;
+			prev = list;
 			list = list->next;
+			list->previous = prev;
 		}
 		else
 		{
 			printf("There is no value you typed\n");
+			flag = 1;
 			break;
 		}
-		ptr->next = (List*)malloc(sizeof(List));
-		ptr = ptr->next;
-		ptr->next = ptr1;
+		if (flag == 0)
+		{
+			list = list->previous;
+			pt = list->next;
+			list->next = (List*)malloc(sizeof(List));
+			list = list->next;
+			list->next = pt;
+		}
 	}
 }
 
@@ -43,7 +53,7 @@ void OutputList(List* list)
 {
 	while (list != NULL)
 	{
-		printf("%lf -> ", list->value_);
+		printf("%.0lf -> ", list->value_);
 		list = list->next;
 	}
 }
@@ -54,8 +64,8 @@ int main()
 	int cls;
 	double myvalue;
 	List* list = (List*)malloc(sizeof(List));
-	list->value_ = rand();
-	void (*func) (List* list);
+	list->value_ = rand() % 100;
+	list->next = NULL;
 
 	start:
 	printf("1. Add an element into list\n2. Add an element before the element you want\n3. Output list\n4. Exit\n");
@@ -83,7 +93,7 @@ int main()
 			system("cls");
 			OutputList(list);
 			printf("\nClear the screen?\n1. Yes\n");
-			scanf_s("%d", cls);
+			scanf_s("%d", &cls);
 			if (cls == 1)
 				system("cls");
 			goto start;

@@ -56,3 +56,5 @@ dkms.conf
 Debug/
 Debug/C-prog.log
 *.log
+*.tlog
+Debug/C-prog.tlog/unsuccessfulbuild

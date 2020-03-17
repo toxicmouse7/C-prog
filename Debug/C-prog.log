@@ -1,0 +1,14 @@
+﻿  aud1.c
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(13,20): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(15,42): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(16,19): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(29,21): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(36,42): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(37,18): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(38,19): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(47,20): warning C4133: =: несовместимые типы - из "List *" в "List *"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(62,14): warning C4013: _getche: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(86,12): warning C4477: "scanf_s": в строке форматирования "%d" требуется аргумент типа "int *", но вариативный аргумент "1" имеет тип "int"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(58,9): warning C4101: func: неиспользованная локальная переменная
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(38): error C4700: использована неинициализированная локальная переменная "ptr1"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud1.c(86): error C4700: использована неинициализированная локальная переменная "cls"

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct
 {
@@ -23,7 +24,7 @@ void AddRandomValue(List* list)
 void AddBeforeValue(List* list, double myvalue)
 {
 	List* prev, *pt = NULL;
-	int flag = 0;
+	int flag = 0, count = 0;
 	while (list->value_ != myvalue)
 	{
 		if (list->next != NULL)
@@ -31,21 +32,34 @@ void AddBeforeValue(List* list, double myvalue)
 			prev = list;
 			list = list->next;
 			list->previous = prev;
+			count++;
 		}
 		else
 		{
+			time_t time_start1 = time(NULL), time_end1 = time(NULL);
 			printf("There is no value you typed\n");
+			while (time_end1 - time_start1 != 3)
+				time_end1 = time(NULL);
 			flag = 1;
 			break;
 		}
+	}
+	if (count == 0)
+	{
+		time_t time_start = time(NULL), time_end = time(NULL);
+		printf("Can't add an element before the first\n");
+		while (time_end - time_start != 3)
+			time_end = time(NULL);
+		return NULL;
+	}
 		if (flag == 0)
-		{
-			list = list->previous;
-			pt = list->next;
-			list->next = (List*)malloc(sizeof(List));
-			list = list->next;
-			list->next = pt;
-		}
+	{
+		list = list->previous;
+		pt = list->next;
+		list->next = (List*)malloc(sizeof(List));
+		list = list->next;
+		list->value_ = rand();
+		list->next = pt;
 	}
 }
 
@@ -82,6 +96,7 @@ int main()
 		}
 		case '2':
 		{
+			printf("\nType value: ");
 			scanf_s("%lf", &myvalue);
 			AddBeforeValue(list, myvalue);
 			system("cls");

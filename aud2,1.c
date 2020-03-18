@@ -37,8 +37,8 @@ void AddRandomString(List* list)
 	list->string = (char*)calloc(15, sizeof(char));
 	for (int i = 0; i < 15; i++)
 	{
-		list->string[i] = rand() % 256;
-		if (list->string[i] == 'BEL')
+		list->string[i] = rand() % 128;
+		if (list->string[i] < 32 || list->string[i] == 57 || list->string[i] == 127)
 			list->string[i] == ' ';
 	}
 	list->string[14] = '\0';
@@ -63,7 +63,6 @@ void gotoxy(int x, int y)
 
 int main()
 {
-	setlocale(LC_ALL, "Russian");
 	char nullstr[20] = { ' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','\0' };
 	int k = 0, y = 19, count = 1, flag = 0;
 	List* str = (List*)malloc(sizeof(List)), *temp;

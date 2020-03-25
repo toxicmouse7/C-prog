@@ -82,7 +82,7 @@ int main()
         }
     } while (nStatus == ERROR_MORE_DATA);
 
-    printf("\nTotal count of entries; %d\n", dwTotalCount);
+    printf("\nTotal count of entries: %d\n", dwTotalCount);
 
     if (pBuf != NULL)
         NetApiBufferFree(pBuf);

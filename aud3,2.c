@@ -8,6 +8,7 @@
 #include <windows.h> 
 #include <lm.h>
 #include <LMaccess.h>
+#include <locale.h>
 
 int main()
 {
@@ -22,6 +23,8 @@ int main()
     DWORD dwTotalCount = 0;
     NET_API_STATUS nStatus;
     LPTSTR pszServerName = NULL;
+
+    setlocale(0, "Russian");
 	
     printf("Local users: \n");
     do
@@ -56,7 +59,7 @@ int main()
                     //
                     //  Вывод имени пользователя, если администратор.
                     //
-                    if (pTmpBuf->usri1_priv == USER_PRIV_USER)
+                    if (pTmpBuf->usri1_priv == USER_PRIV_USER)                    
                         wprintf(L"\t-- %s\n", pTmpBuf->usri1_name);
 
                     pTmpBuf++;
@@ -79,7 +82,7 @@ int main()
         }
     } while (nStatus == ERROR_MORE_DATA);
 
-    printf("\nTotal count of entries %d\n", dwTotalCount);
+    printf("\nTotal count of entries; %d\n", dwTotalCount);
 
     if (pBuf != NULL)
         NetApiBufferFree(pBuf);

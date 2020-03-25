@@ -1,3 +1,5 @@
 ﻿  aud3,1.c
-C:\Users\Алексей\source\repos\C-prog\C-prog\aud3,1.c(24,19): warning C4013: _getch: нет определения; предполагается "extern" с возвратом типа "int"
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud3,1.c(18,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud3,1.c(20,13): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\Алексей\source\repos\C-prog\C-prog\aud3,1.c(56,19): warning C4013: _getch: нет определения; предполагается "extern" с возвратом типа "int"
   C-prog.vcxproj -> C:\Users\Алексей\source\repos\C-prog\Debug\C-prog.exe

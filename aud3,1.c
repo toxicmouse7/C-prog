@@ -10,6 +10,38 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
+int passcheck(char* pass)
+{
+	int ch = 0, val = 0;
+	if (strlen(pass) <= 6)
+		return 0;
+	for (int i = 0; i < strlen(pass); i++)
+	{
+		if (i + 2 < strlen(pass))
+		{
+			if (pass[i] == pass[i + 1] && pass[i + 1] == pass[i + 2])
+				return 0;
+			if (pass[i] > 47 && pass[i] < 58)
+			{
+				if ((pass[i + 2] - pass[i + 1] == 1) && (pass[i + 1] - pass[i] == 1))
+					return 0;
+				if ((pass[i] - pass[i + 1] == 1) && (pass[i + 1] - pass[i + 2] == 1))
+					return 0;
+			}
+		}
+		if (pass[i] > 47 && pass[i] < 58)
+			val++;
+		if ((pass[i] > 64 && pass[i] < 91) || (pass[i] > 96 && pass[i] < 123))
+			ch++;
+		else if ((pass[i] < 65 && pass[i] > 90) && (pass[i] < 97 && pass[i] > 122) && (pass[i] < 48 && pass[i] > 57))
+			return 0;
+	}
+
+	if (val < 3 && ch < 3)
+		return 0;
+
+	return 1;
+}
 
 int main()
 {
@@ -59,6 +91,10 @@ int main()
 			break;
 		}
 	}
+
+	if (passcheck(pass) == 1)
+		printf("\nGood password!\n");
+	else printf("\nBad password :C\n");
 
 	system("pause");
 	return 0;

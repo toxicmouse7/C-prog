@@ -40,4 +40,7 @@ int main()
     {
         printf("%d\n", ans[i]-1);
     }
+
+    system("pause");
+    return 0;
 }

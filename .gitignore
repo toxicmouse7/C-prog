@@ -58,3 +58,5 @@ Debug/C-prog.log
 *.log
 *.tlog
 Debug/C-prog.tlog/unsuccessfulbuild
+*.log
+*.tlog

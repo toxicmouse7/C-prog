@@ -35,5 +35,6 @@ int main()
 
 	printf("\n%s\nLenght of substring: %d\n", string, lenght);
 
+	free(string);
 	return 0;
 }

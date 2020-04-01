@@ -2,11 +2,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+void nullascii(int* mass)
+{
+	for (int i = 0; i < 255; i++)
+		mass[i] = 0;
+}
+
 int main()
 {
-	int i = 0, lenght = 0;
+	int i = 0, lenght = 0, maxlenght = 0, sure_k;
 	int ascii[255] = { 0 };
-	char* string = (char*)calloc(1, sizeof(char));
+	char* string = (char*)calloc(1, sizeof(char)), check;
 	
 	while (1)
 	{
@@ -40,18 +46,35 @@ int main()
 	}
 	string[i] = '\0';
 	system("cls");
+	i = 0;
+
+	char* ans = (char*)calloc(strlen(string), sizeof(char));
 
 	for (int j = 0; j < strlen(string); j++)
 	{
-		if (ascii[(int)string[j]] == 0)
+		int k = 0;
+		while (ascii[(int)string[k + j]] != 1 && k + j < strlen(string))
 		{
-			printf("%c", string[j]);
-			ascii[(int)string[j]] = 1;
+			ascii[(int)string[k + j]]++;
 			lenght++;
+			k++;
 		}
+		if (lenght > maxlenght)
+		{
+			maxlenght = lenght;
+			lenght = 0;
+			sure_k = j;
+		}
+		else lenght = 0;
+		nullascii(ascii);
 	}
 
-	printf("\n%s\nLenght of substring: %d\n", string, lenght);
+	for (int q = 0; q < maxlenght; q++)
+	{
+		ans[q] = string[sure_k + q];
+	}
+
+	printf("%s\n\n", ans);
 
 	free(string);
 	return 0;

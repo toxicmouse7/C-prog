@@ -74,7 +74,7 @@ int main()
 		ans[q] = string[sure_k + q];
 	}
 
-	printf("%s\n\n", ans);
+	printf("%s\nLenght: %d\n", ans, maxlenght);
 
 	free(string);
 	return 0;

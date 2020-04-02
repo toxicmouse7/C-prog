@@ -21,9 +21,7 @@ int main()
 	NET_API_STATUS nStatus;
 	LPUSER_INFO_2 pBuf = NULL;
 
-	//freopen_s(&f, "username.txt", "w", stdout);
-
-	//_getws_s(username, 20);
+	//_getws_s(username, 20); - разкомментировать, если нужно ввести имя пользователя самому(на латиннице)
 
 	nStatus = NetUserGetInfo(servername, L"Алексей", level, (LPBYTE*)&pBuf);
 
@@ -34,7 +32,7 @@ int main()
 		wprintf(L"Password age (seconds): %d\n", pBuf->usri2_password_age);
 		if (pBuf->usri2_priv == USER_PRIV_ADMIN)
 			printf("Privilege level: Administrator\n");
-		else if(pBuf->usri2_priv == USER_PRIV_USER)
+		else if (pBuf->usri2_priv == USER_PRIV_USER)
 			printf("Privilege level: User\n");
 		else if (pBuf->usri2_priv == USER_PRIV_GUEST)
 			printf("Privilege level: Guest\n");
@@ -44,14 +42,20 @@ int main()
 			printf("Account expires(seconds since January 1, 1970 GMT): Never\n");
 		else wprintf(L"Account expires (seconds since January 1, 1970 GMT): %d\n", pBuf->usri2_acct_expires);
 		wprintf(L"Max storage: %d\n", pBuf->usri2_max_storage);
-		wprintf(L"Bad password count: %d\n",pBuf->usri2_bad_pw_count);
-		wprintf(L"Number of logons: %d\n",pBuf->usri2_num_logons);
+		wprintf(L"Bad password count: %d\n", pBuf->usri2_bad_pw_count);
+		wprintf(L"Number of logons: %d\n", pBuf->usri2_num_logons);
 		wprintf(L"Logon server: %s\n", pBuf->usri2_logon_server);
 		wprintf(L"Country code: %d\n", pBuf->usri2_country_code);
 		wprintf(L"Code page: %d\n", pBuf->usri2_code_page);
 	}
 	else if (nStatus == NERR_UserNotFound)
 		printf("User can't be found\n");
+	else if (nStatus == ERROR_ACCESS_DENIED)
+		printf("The user does not have access to the requested information.");
+	else if (nStatus == ERROR_INVALID_LEVEL)
+		printf("The value specified for the level parameter is invalid.");
+	else if (nStatus == NERR_InvalidComputer)
+		printf("The computer name is invalid.");
 
 	system("pause");
 	return 0;

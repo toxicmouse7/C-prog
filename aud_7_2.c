@@ -13,33 +13,42 @@
 
 int main()
 {
+	_wsetlocale(LC_ALL, L"Russian");
 	setlocale(LC_ALL, "Russian");
 	DWORD level = 2;
 	LPCWSTR servername = NULL;
-	LPCWSTR username;
+	wchar_t* username = (wchar_t*)calloc(20, sizeof(wchar_t));
 	NET_API_STATUS nStatus;
 	LPUSER_INFO_2 pBuf = NULL;
 
-	//username = gets();
-	
-	nStatus = NetUserGetInfo(servername, (wchar_t*)L"Алексей", level, (LPBYTE*)&pBuf);
+	//freopen_s(&f, "username.txt", "w", stdout);
+
+	//_getws_s(username, 20);
+
+	nStatus = NetUserGetInfo(servername, L"Алексей", level, (LPBYTE*)&pBuf);
 
 	if (nStatus == NERR_Success)
 	{
 		wprintf(L"User account name: %s\n", pBuf->usri2_name);
 		wprintf(L"Password: %s\n", pBuf->usri2_password);
-		wprintf(L"Password age (seconds): %d\n",
-			pBuf->usri2_password_age);
+		wprintf(L"Password age (seconds): %d\n", pBuf->usri2_password_age);
 		if (pBuf->usri2_priv == USER_PRIV_ADMIN)
 			printf("Privilege level: Administrator\n");
 		else if(pBuf->usri2_priv == USER_PRIV_USER)
 			printf("Privilege level: User\n");
 		else if (pBuf->usri2_priv == USER_PRIV_GUEST)
 			printf("Privilege level: Guest\n");
-		wprintf(L"Home directory: %s\n", pBuf->usri2_home_dir);
-		wprintf(L"User comment: %s\n", pBuf->usri2_comment);
-		wprintf(L"Flags (in hex): %x\n", pBuf->usri2_flags);
-		wprintf(L"Script path: %s\n", pBuf->usri2_script_path);
+		wprintf(L"Last logon (seconds since January 1, 1970 GMT): %d\n", pBuf->usri2_last_logon);
+		wprintf(L"Last logoff (seconds since January 1, 1970 GMT): %d\n", pBuf->usri2_last_logoff);
+		if (pBuf->usri2_acct_expires == TIMEQ_FOREVER)
+			printf("Account expires(seconds since January 1, 1970 GMT): Never\n");
+		else wprintf(L"Account expires (seconds since January 1, 1970 GMT): %d\n", pBuf->usri2_acct_expires);
+		wprintf(L"Max storage: %d\n", pBuf->usri2_max_storage);
+		wprintf(L"Bad password count: %d\n",pBuf->usri2_bad_pw_count);
+		wprintf(L"Number of logons: %d\n",pBuf->usri2_num_logons);
+		wprintf(L"Logon server: %s\n", pBuf->usri2_logon_server);
+		wprintf(L"Country code: %d\n", pBuf->usri2_country_code);
+		wprintf(L"Code page: %d\n", pBuf->usri2_code_page);
 	}
 	else if (nStatus == NERR_UserNotFound)
 		printf("User can't be found\n");

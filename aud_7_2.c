@@ -11,19 +11,21 @@
 #include <sddl.h> 
 #include <locale.h>
 
-int main()
+int main(int argc, char* argv[])
 {
 	_wsetlocale(LC_ALL, L"Russian");
 	setlocale(LC_ALL, "Russian");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	DWORD level = 2;
 	LPCWSTR servername = NULL;
-	wchar_t* username = (wchar_t*)calloc(20, sizeof(wchar_t));
+	wchar_t username[21];
 	NET_API_STATUS nStatus;
 	LPUSER_INFO_2 pBuf = NULL;
 
-	//_getws_s(username, 20); - разкомментировать, если нужно ввести имя пользователя самому(на латиннице)
+	_getws_s(username, 20);
 
-	nStatus = NetUserGetInfo(servername, L"Алексей", level, (LPBYTE*)&pBuf);
+	nStatus = NetUserGetInfo(servername, (wchar_t*)username, level, (LPBYTE*)&pBuf);
 
 	if (nStatus == NERR_Success)
 	{

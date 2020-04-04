@@ -11,6 +11,12 @@ typedef struct
 	struct Snake* previous;
 } Snake;
 
+//typedef struct
+//{
+//	int x;
+//	int y;
+//} Apple;
+
 void gotoxy(int x, int y)
 {
 	COORD coord;
@@ -39,6 +45,17 @@ void create_game_field()
 
 }
 
+void Add_Random_Apple()
+{
+	gotoxy(rand() % 40, rand() % 20);
+	printf("@");
+}
+
+void Output_Snake()
+{
+
+}
+
 int main()
 {
 	Snake* snake = (Snake*)malloc(sizeof(Snake));
@@ -56,16 +73,29 @@ int main()
 
 		switch (ch)
 		{
-			case 'd': 
+			case 'w': 
 			{
-				system("cls");
-				create_game_field();
-				gotoxy(snake->x, snake->y);
-				printf("*");
-				Sleep(300);
-				snake->x++;
-				break;
+
 			}
+			case 'a':
+			{
+
+			}
+			case 's':
+			{
+
+			}
+			case 'd':
+			{
+
+			}
+		}
+
+		if (snake->x >= 40 || snake->x <= 0 || snake->y <= 0 || snake->y >= 20)
+		{
+			system("cls");
+			printf("Game Over\n");
+			break;
 		}
 
 	}

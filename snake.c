@@ -77,8 +77,8 @@ void increase_snake(Snake* snake, char ch)
 	while (snake->next != NULL)
 		snake = snake->next;
 	tmp = snake;
+	snake->next = (Snake*)malloc(sizeof(Snake));
 	snake = snake->next;
-	snake = (Snake*)malloc(sizeof(Snake));
 	snake->next = NULL;
 	snake->previous = tmp;
 	if (ch == 'w')
@@ -110,6 +110,7 @@ int main()
 	Apple* apple = (Apple*)malloc(sizeof(Apple));
 	int score = 0;
 	snake->next = NULL;
+	snake->previous = NULL;
 	snake->x = 20;
 	snake->y = 10;
 	char ch = 'm';
@@ -142,7 +143,7 @@ int main()
 				{
 					gotoxy(snake_go->x, snake_go->y + 1);
 					printf(" ");
-					gotoxy(snake_go->x, snake_go->y);
+					gotoxy(snake->x, snake->y);
 				}
 				Sleep(300);
 				break;
@@ -164,7 +165,7 @@ int main()
 				{
 					gotoxy(snake_go->x + 1, snake_go->y);
 					printf(" ");
-					gotoxy(snake_go->x, snake_go->y);
+					gotoxy(snake->x, snake->y);
 				}
 				Sleep(300);
 				break;
@@ -186,7 +187,7 @@ int main()
 				{
 					gotoxy(snake_go->x, snake_go->y - 1);
 					printf(" ");
-					gotoxy(snake_go->x, snake_go->y);
+					gotoxy(snake->x, snake->y);
 				}
 				Sleep(300);
 				break;
@@ -208,7 +209,7 @@ int main()
 				{
 					gotoxy(snake_go->x - 1, snake_go->y);
 					printf(" ");
-					gotoxy(snake_go->x, snake_go->y);
+					gotoxy(snake->x, snake->y);
 				}
 				Sleep(300);
 				break;

@@ -117,6 +117,7 @@ int main()
 {
 	Snake* snake = (Snake*)malloc(sizeof(Snake));
 	Snake* snake_go;
+	Snake* tmp;
 	Apple* apple = (Apple*)malloc(sizeof(Apple));
 	int score = 0;
 	snake->next = NULL;
@@ -140,12 +141,22 @@ int main()
 			{
 				Remove_Old_Snake(snake);
 				snake_go = snake;
+				while (snake_go->next != NULL)
+					snake_go = snake_go->next;
+				while (snake_go->previous != NULL)
+				{
+					tmp = snake_go->previous;
+					snake_go->y = tmp->y;
+					snake_go = snake_go->previous;
+				}
+				
+				/*snake_go = snake;
 				while (snake_go != NULL)
 				{
 					snake_go->y--;
 					snake_go = snake_go->next;
 
-				}
+				}*/
 				Output_Snake(snake);
 				Sleep(300);
 				break;

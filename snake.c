@@ -225,22 +225,36 @@ int main()
 			{
 				Remove_Old_Snake(snake);
 				snake_go = snake;
+
+				while (snake_go->next != NULL)
+					snake_go = snake_go->next;
+
+				while (snake_go->previous != NULL)
+				{
+					tmp = snake_go->previous;
+					snake_go->y = tmp->y;
+					snake_go->x = tmp->x;
+					snake_go = snake_go->previous;
+				}
+				snake->x++;
+
+				/*snake_go = snake;
 				while (snake_go != NULL)
 				{
 					snake_go->x++;
 					snake_go = snake_go->next;
 
-				}
+				}*/
 				Output_Snake(snake);
 				Sleep(300);
 				break;
 			}
 		}
 
-		if (snake->x >= 39 || snake->x < 1 || snake->y < 1 || snake->y >= 19)
+		if (snake->x > 39 || snake->x < 1 || snake->y < 1 || snake->y > 19)
 		{
 			system("cls");
-			printf("Game Over\n");
+			printf("Game Over, your score is: %d\n", score);
 			break;
 		}
 
@@ -250,6 +264,18 @@ int main()
 			Add_Random_Apple(apple);
 			Output_Apple(apple);
 			score++;
+		}
+
+		snake_go = snake;
+		while (snake_go->next != NULL)
+		{
+			snake_go = snake_go->next;
+			if (snake->x == snake_go->x && snake->y == snake_go->y)
+			{
+				system("cls");
+				printf("Game Over, your score is: %d\n", score);
+				exit(0);
+			}
 		}
 
 	}

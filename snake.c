@@ -138,6 +138,7 @@ int main()
 		{
 			case 'w': 
 			{
+				Remove_Old_Snake(snake);
 				snake_go = snake;
 				while (snake_go != NULL)
 				{
@@ -146,20 +147,12 @@ int main()
 
 				}
 				Output_Snake(snake);
-				snake_go = snake;
-				while (snake_go->next != NULL)
-					snake_go = snake->next;
-				if (snake_go->y + 1 != 0)
-				{
-					gotoxy(snake_go->x, snake_go->y + 1);
-					printf(" ");
-					gotoxy(snake->x, snake->y);
-				}
 				Sleep(300);
 				break;
 			}
 			case 'a':
 			{
+				Remove_Old_Snake(snake);
 				snake_go = snake;
 				while (snake_go != NULL)
 				{
@@ -168,20 +161,12 @@ int main()
 
 				}
 				Output_Snake(snake);
-				snake_go = snake;
-				while (snake_go->next != NULL)
-					snake_go = snake->next;
-				if (snake_go->x + 1 != 0)
-				{
-					gotoxy(snake_go->x + 1, snake_go->y);
-					printf(" ");
-					gotoxy(snake->x, snake->y);
-				}
 				Sleep(300);
 				break;
 			}
 			case 's':
 			{
+				Remove_Old_Snake(snake);
 				snake_go = snake;
 				while (snake_go != NULL)
 				{
@@ -190,15 +175,6 @@ int main()
 
 				}
 				Output_Snake(snake);
-				snake_go = snake;
-				while (snake_go->next != NULL)
-					snake_go = snake->next;
-				if (snake_go->y - 1 != 0)
-				{
-					gotoxy(snake_go->x, snake_go->y - 1);
-					printf(" ");
-					gotoxy(snake->x, snake->y);
-				}
 				Sleep(300);
 				break;
 			}
@@ -213,15 +189,6 @@ int main()
 
 				}
 				Output_Snake(snake);
-				/*snake_go = snake;
-				while (snake_go->next != NULL)
-					snake_go = snake->next;
-				if (snake_go->x - 1 != 0)
-				{
-					gotoxy(snake_go->x - 1, snake_go->y);
-					printf(" ");
-					gotoxy(snake->x, snake->y);
-				}*/
 				Sleep(300);
 				break;
 			}
@@ -239,6 +206,7 @@ int main()
 			increase_snake(snake, ch);
 			Add_Random_Apple(apple);
 			Output_Apple(apple);
+			score++;
 		}
 
 	}

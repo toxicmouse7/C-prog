@@ -71,6 +71,16 @@ void Output_Snake(Snake* snake)
 	}
 }
 
+void Remove_Old_Snake(Snake* snake)
+{
+	while (snake != NULL)
+	{
+		gotoxy(snake->x, snake->y);
+		printf(" ");
+		snake = snake->next;
+	}
+}
+
 void increase_snake(Snake* snake, char ch)
 {
 	Snake* tmp;
@@ -194,6 +204,7 @@ int main()
 			}
 			case 'd':
 			{
+				Remove_Old_Snake(snake);
 				snake_go = snake;
 				while (snake_go != NULL)
 				{
@@ -202,7 +213,7 @@ int main()
 
 				}
 				Output_Snake(snake);
-				snake_go = snake;
+				/*snake_go = snake;
 				while (snake_go->next != NULL)
 					snake_go = snake->next;
 				if (snake_go->x - 1 != 0)
@@ -210,7 +221,7 @@ int main()
 					gotoxy(snake_go->x - 1, snake_go->y);
 					printf(" ");
 					gotoxy(snake->x, snake->y);
-				}
+				}*/
 				Sleep(300);
 				break;
 			}

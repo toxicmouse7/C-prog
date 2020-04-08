@@ -145,6 +145,7 @@ void free_snake(Snake* snake)
 
 int main()
 {
+	system("title Snake");
 	FILE* f;
 	Snake* snake = (Snake*)malloc(sizeof(Snake));
 	Snake* snake_go;

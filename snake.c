@@ -130,8 +130,22 @@ void pullup_snake(Snake* snake)
 	}
 }
 
+void free_snake(Snake* snake)
+{
+	while (snake->next != NULL)
+		snake = snake->next;
+
+	while (snake->previous != NULL)
+	{
+		snake = snake->previous;
+		free(snake->next);
+	}
+	free(snake);
+}
+
 int main()
 {
+	FILE* f;
 	Snake* snake = (Snake*)malloc(sizeof(Snake));
 	Snake* snake_go;
 	Snake* tmp;
@@ -143,6 +157,11 @@ int main()
 	snake->y = 10;
 	char ch = 'm';
 	int time = 300;
+	char Nickname[21];
+
+	printf("Write your nickname: ");
+	gets(Nickname);
+	system("cls");
 
 	create_game_field();
 	Add_Random_Apple(apple);
@@ -278,7 +297,7 @@ int main()
 		{
 			system("cls");
 			printf("Game Over, your score is: %d\n", score);
-			break;
+			goto end;
 		}
 
 		if (snake->x == apple->x && snake->y == apple->y)
@@ -298,12 +317,19 @@ int main()
 			{
 				system("cls");
 				printf("Game Over, your score is: %d\n", score);
-				exit(0);
+				goto end;
 			}
 		}
 
 	}
+	end:
+
+	fopen_s(&f, "scorelist.txt", "a+");
+	fprintf(f, "%s - %d", Nickname, score);
+	fclose(f);
 	
+	free_snake(snake);
+	free(apple);
 
 	system("pause");
 	return 0;

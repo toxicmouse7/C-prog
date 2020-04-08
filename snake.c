@@ -160,6 +160,13 @@ int main()
 	int time = 300;
 	char Nickname[21];
 
+	void* handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO structCursorInfo;
+	GetConsoleCursorInfo(handle, &structCursorInfo);
+	structCursorInfo.bVisible = FALSE;
+	SetConsoleCursorInfo(handle, &structCursorInfo);
+
+
 	printf("Write your nickname: ");
 	gets(Nickname);
 	system("cls");

@@ -179,27 +179,6 @@ int main()
 				Remove_Old_Snake(snake);
 				pullup_snake(snake);
 				snake->y--;
-				/*snake_go = snake;*/
-
-				/*while (snake_go->next != NULL)
-					snake_go = snake_go->next;
-
-				while (snake_go->previous != NULL)
-				{
-					tmp = snake_go->previous;
-					snake_go->y = tmp->y;
-					snake_go->x = tmp->x;
-					snake_go = snake_go->previous;
-				}
-				snake->y--;*/
-				
-				/*snake_go = snake;
-				while (snake_go != NULL)
-				{
-					snake_go->y--;
-					snake_go = snake_go->next;
-
-				}*/
 				Output_Snake(snake);
 				Sleep(time);
 				break;
@@ -208,27 +187,7 @@ int main()
 			{
 				Remove_Old_Snake(snake);
 				pullup_snake(snake);
-				/*snake_go = snake;
-
-				while (snake_go->next != NULL)
-					snake_go = snake_go->next;
-
-				while (snake_go->previous != NULL)
-				{
-					tmp = snake_go->previous;
-					snake_go->y = tmp->y;
-					snake_go->x = tmp->x;
-					snake_go = snake_go->previous;
-				}*/
 				snake->x--;
-
-				/*snake_go = snake;
-				while (snake_go != NULL)
-				{
-					snake_go->x--;
-					snake_go = snake_go->next;
-
-				}*/
 				Output_Snake(snake);
 				Sleep(time);
 				break;
@@ -237,27 +196,7 @@ int main()
 			{
 				Remove_Old_Snake(snake);
 				pullup_snake(snake);
-				/*snake_go = snake;
-
-				while (snake_go->next != NULL)
-					snake_go = snake_go->next;
-
-				while (snake_go->previous != NULL)
-				{
-					tmp = snake_go->previous;
-					snake_go->y = tmp->y;
-					snake_go->x = tmp->x;
-					snake_go = snake_go->previous;
-				}*/
 				snake->y++;
-
-				/*snake_go = snake;
-				while (snake_go != NULL)
-				{
-					snake_go->y++;
-					snake_go = snake_go->next;
-
-				}*/
 				Output_Snake(snake);
 				Sleep(time);
 				break;
@@ -266,27 +205,7 @@ int main()
 			{
 				Remove_Old_Snake(snake);
 				pullup_snake(snake);
-				/*snake_go = snake;
-
-				while (snake_go->next != NULL)
-					snake_go = snake_go->next;
-
-				while (snake_go->previous != NULL)
-				{
-					tmp = snake_go->previous;
-					snake_go->y = tmp->y;
-					snake_go->x = tmp->x;
-					snake_go = snake_go->previous;
-				}*/
 				snake->x++;
-
-				/*snake_go = snake;
-				while (snake_go != NULL)
-				{
-					snake_go->x++;
-					snake_go = snake_go->next;
-
-				}*/
 				Output_Snake(snake);
 				Sleep(time);
 				break;
@@ -306,7 +225,8 @@ int main()
 			Add_Random_Apple(apple);
 			Output_Apple(apple);
 			score++;
-			time -= 10;
+			if (time > 49)
+				time -= 10;
 		}
 
 		snake_go = snake;

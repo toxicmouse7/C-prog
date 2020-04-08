@@ -113,6 +113,23 @@ void increase_snake(Snake* snake, char ch)
 	}
 }
 
+void pullup_snake(Snake* snake)
+{
+	Snake* snake_goes, *tmp;
+	snake_goes = snake;
+
+	while (snake_goes->next != NULL)
+		snake_goes = snake_goes->next;
+
+	while (snake_goes->previous != NULL)
+	{
+		tmp = snake_goes->previous;
+		snake_goes->y = tmp->y;
+		snake_goes->x = tmp->x;
+		snake_goes = snake_goes->previous;
+	}
+}
+
 int main()
 {
 	Snake* snake = (Snake*)malloc(sizeof(Snake));
@@ -125,6 +142,7 @@ int main()
 	snake->x = 20;
 	snake->y = 10;
 	char ch = 'm';
+	int time = 300;
 
 	create_game_field();
 	Add_Random_Apple(apple);
@@ -140,9 +158,11 @@ int main()
 			case 'w': 
 			{
 				Remove_Old_Snake(snake);
-				snake_go = snake;
+				pullup_snake(snake);
+				snake->y--;
+				/*snake_go = snake;*/
 
-				while (snake_go->next != NULL)
+				/*while (snake_go->next != NULL)
 					snake_go = snake_go->next;
 
 				while (snake_go->previous != NULL)
@@ -152,7 +172,7 @@ int main()
 					snake_go->x = tmp->x;
 					snake_go = snake_go->previous;
 				}
-				snake->y--;
+				snake->y--;*/
 				
 				/*snake_go = snake;
 				while (snake_go != NULL)
@@ -162,13 +182,14 @@ int main()
 
 				}*/
 				Output_Snake(snake);
-				Sleep(300);
+				Sleep(time);
 				break;
 			}
 			case 'a':
 			{
 				Remove_Old_Snake(snake);
-				snake_go = snake;
+				pullup_snake(snake);
+				/*snake_go = snake;
 
 				while (snake_go->next != NULL)
 					snake_go = snake_go->next;
@@ -179,7 +200,7 @@ int main()
 					snake_go->y = tmp->y;
 					snake_go->x = tmp->x;
 					snake_go = snake_go->previous;
-				}
+				}*/
 				snake->x--;
 
 				/*snake_go = snake;
@@ -190,13 +211,14 @@ int main()
 
 				}*/
 				Output_Snake(snake);
-				Sleep(300);
+				Sleep(time);
 				break;
 			}
 			case 's':
 			{
 				Remove_Old_Snake(snake);
-				snake_go = snake;
+				pullup_snake(snake);
+				/*snake_go = snake;
 
 				while (snake_go->next != NULL)
 					snake_go = snake_go->next;
@@ -207,7 +229,7 @@ int main()
 					snake_go->y = tmp->y;
 					snake_go->x = tmp->x;
 					snake_go = snake_go->previous;
-				}
+				}*/
 				snake->y++;
 
 				/*snake_go = snake;
@@ -218,13 +240,14 @@ int main()
 
 				}*/
 				Output_Snake(snake);
-				Sleep(300);
+				Sleep(time);
 				break;
 			}
 			case 'd':
 			{
 				Remove_Old_Snake(snake);
-				snake_go = snake;
+				pullup_snake(snake);
+				/*snake_go = snake;
 
 				while (snake_go->next != NULL)
 					snake_go = snake_go->next;
@@ -235,7 +258,7 @@ int main()
 					snake_go->y = tmp->y;
 					snake_go->x = tmp->x;
 					snake_go = snake_go->previous;
-				}
+				}*/
 				snake->x++;
 
 				/*snake_go = snake;
@@ -246,7 +269,7 @@ int main()
 
 				}*/
 				Output_Snake(snake);
-				Sleep(300);
+				Sleep(time);
 				break;
 			}
 		}
@@ -264,6 +287,7 @@ int main()
 			Add_Random_Apple(apple);
 			Output_Apple(apple);
 			score++;
+			time -= 10;
 		}
 
 		snake_go = snake;

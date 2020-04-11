@@ -11,7 +11,6 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	TCHAR infoBuf[INFO_BUFFER_SIZE];
-	char hostname[256];
 	DWORD bufCharCount = INFO_BUFFER_SIZE;
 	struct tm time_date;
 	time_t long_time = time(NULL);

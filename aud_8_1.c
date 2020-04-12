@@ -130,23 +130,14 @@ void addBeforeValue(list* head, list* current)
 	addBeforeCurrent(current);
 }
 
-void deleteByValue(list* head, list* current)
-{
-	double value;
-	scanf_s("%lf", &value);
-	current = findByValue(head, value);
-	current->previous->next = current->next;
-	current->next->previous = current->previous;
-	free(current);
-}
-
-void deleteByPointer(list* current)
-{
-	scanf_s("%p", current);
-	current->previous->next = current->next;
-	current->next->previous = current->previous;
-	free(current);
-}
+//void deleteByPointer(list* current)
+//{
+//	scanf_s("%p", current);
+//	current->previous->next = current->next;
+//	current->next->previous = current->previous;
+//	free(current);
+//	current = NULL;
+//}
 
 void freeAll(list* head, list* tail)
 {
@@ -182,7 +173,7 @@ int main()
 	{
 		char ch;
 
-		printf("1.Вывести из начала в конец\n2.Вывести из конца в начало\n3.Добавить элемент в конец\n4.Добавить элемент в начало\n5.Найти элемент по значению\n6.Удалить элемент по значению\n7.Добавить элемент перед текущим\n8.Добавить перед значением\n9.Поменять местами\n");
+		printf("1.Вывести из начала в конец\n2.Вывести из конца в начало\n3.Добавить элемент в конец\n4.Добавить элемент в начало\n5.Найти элемент по значению\n6.Удалить элемент по значению\n7.Добавить элемент перед текущим\n8.Добавить перед значением\n");
 		ch = _getch();
 		system("cls");
 
@@ -238,6 +229,11 @@ int main()
 			addBeforeValue(head, current);
 			break;
 		}
+		//case '9':
+		//{
+		//	deleteByPointer(current);
+		//	break;
+		//}
 		default: 
 		{
 			freeAll(head, tail);

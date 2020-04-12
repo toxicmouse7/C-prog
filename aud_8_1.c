@@ -94,7 +94,7 @@ void deleteByValue(list* head, double _value)
 	if (cur == NULL)
 	{
 		printf("Элемент по указанному значению не найден\n");
-		return (void*)NULL;
+		return NULL;
 	}
 	else
 	{
@@ -110,7 +110,7 @@ void addBeforeCurrent(list* current)
 	if (current == NULL)
 	{
 		printf("Текущий элемент не выбран\n");
-		return (void*)NULL;
+		return NULL;
 	}
 	list* new = (list*)malloc(sizeof(list));
 	list* temp;

@@ -73,10 +73,10 @@ list* findByValue(list* head, double _value)
 
 void swapTwoElements(list* head)
 {
-	double value1, value2, temp;
-	list* cur, * cur1;
+	double value1, value2;
+	list* cur, * cur1, *temp;
 	printf("¬ведите значени€ элементов, которые нужно помен€ть (source & destination): ");
-	scanf_s("%lf%lf", value1, value2);
+	scanf_s("%lf%lf", &value1, &value2);
 	cur = findByValue(head, value1);
 	cur1 = findByValue(head, value2);
 	if (cur == NULL || cur1 == NULL)
@@ -84,8 +84,15 @@ void swapTwoElements(list* head)
 		printf("Ёлементов с такими значени€ми не обнаружено\n");
 		return (void*)NULL;
 	}
-	cur->value = value2;
-	cur1->value = value1;
+	temp = cur;
+	temp->next = cur->next;
+	temp->previous = cur->previous;
+	cur = cur1;
+	cur->next = cur1->next;
+	cur->previous = cur1->previous;
+	cur1 = temp;
+	cur1->next = temp->next;
+	cur1->previous = temp->previous;
 }
 
 void deleteByValue(list* head, double _value)
@@ -151,9 +158,19 @@ void freeAll(list* head, list* tail)
 
 void splice(list* left, list* right, list* position)
 {
-	left->previous->next = right->next;
-	left->previous = position;
-	right->next = position->next;
+	if (position->next == left)
+		return NULL;
+
+	if (left->previous != NULL)
+		left->previous->next = right->next;
+	if (right->next != NULL)
+		right->next->previous = left->previous;
+	if (left->previous != NULL)
+		left->previous = position;
+	if (right->next != NULL)
+		right->next = position->next;
+	position->next->previous = right;
+	position->next = left;
 }
 
 int main()
@@ -168,6 +185,7 @@ int main()
 	tail->previous = head;
 	head->value = rand() % 100;
 	tail->value = rand() % 100;
+	list* right, * left;
 
 	while (1)
 	{
@@ -229,11 +247,16 @@ int main()
 			addBeforeValue(head, current);
 			break;
 		}
-		//case '9':
-		//{
-		//	deleteByPointer(current);
-		//	break;
-		//}
+		case '9':
+		{
+			double value;
+			scanf_s("%lf", &value);
+			left = findByValue(head, value);
+			scanf_s("%lf", &value);
+			right = findByValue(head, value);
+			splice(left, right, current);
+			break;
+		}
 		default: 
 		{
 			freeAll(head, tail);

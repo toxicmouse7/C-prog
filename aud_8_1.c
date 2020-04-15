@@ -74,7 +74,7 @@ list* findByValue(list* head, double _value)
 void swapTwoElements(list* head)
 {
 	double value1, value2;
-	list* cur, * cur1, *temp;
+	list* cur, * cur1, *temp = (list*)malloc(sizeof(list));
 	printf("¬ведите значени€ элементов, которые нужно помен€ть (source & destination): ");
 	scanf_s("%lf%lf", &value1, &value2);
 	cur = findByValue(head, value1);
@@ -84,15 +84,39 @@ void swapTwoElements(list* head)
 		printf("Ёлементов с такими значени€ми не обнаружено\n");
 		return (void*)NULL;
 	}
-	temp = cur;
-	temp->next = cur->next;
-	temp->previous = cur->previous;
-	cur = cur1;
-	cur->next = cur1->next;
-	cur->previous = cur1->previous;
-	cur1 = temp;
-	cur1->next = temp->next;
-	cur1->previous = temp->previous;
+	//if (cur1->next != cur || cur1->previous != cur)
+	//{
+		//if (cur1->next != NULL)
+			temp->next = cur1->next;
+		//else temp->next = NULL;
+		//if (cur1->previous != NULL)
+			temp->previous = cur1->previous;
+		//else temp->previous = NULL;
+		if (cur->previous != NULL)
+			cur->previous->next = cur1;
+		if (cur->next != NULL)
+			cur->next->previous = cur1;
+		if (cur1->next != NULL)
+			cur1->next->previous = cur;
+		if (cur1->previous != NULL)
+			cur1->previous->next = cur;
+		//if (cur1->next != NULL)
+			cur1->next = cur->next;
+		//if (cur1->previous != NULL)
+			cur1->previous = cur->previous;
+		//if (cur->previous != NULL && temp->previous != NULL)
+			cur->previous = temp->previous;
+		//if (cur->next != NULL && temp->next != NULL)
+			cur->next = temp->next;
+	//}
+	/*else
+	{
+		temp->next = cur1->next;
+		temp->previous = cur1->previous;
+		cur1->next = cur->next;
+		cur1->previous = cur->previous;
+	}*/
+	free(temp);
 }
 
 void deleteByValue(list* head, double _value)
@@ -249,12 +273,14 @@ int main()
 		}
 		case '9':
 		{
-			double value;
+			/*double value;
 			scanf_s("%lf", &value);
 			left = findByValue(head, value);
 			scanf_s("%lf", &value);
 			right = findByValue(head, value);
 			splice(left, right, current);
+			break;*/
+			swapTwoElements(head);
 			break;
 		}
 		default: 

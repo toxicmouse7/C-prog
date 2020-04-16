@@ -39,11 +39,13 @@ void outputToLeft(list* tail)
 
 list* addToRight(list* tail)
 {
+	int minus = rand()%3 + 1;
 	tail->next = (list*)malloc(sizeof(list));
 	tail->next->previous = tail;
 	tail = tail->next;
-	tail->value = rand() % 1300;
-	tail->value /= 13.0;
+	tail->value = (double)(rand()) / RAND_MAX * 100;
+	if (minus == 2)
+		tail->value *= -1;
 	tail->next = NULL;
 
 	return tail;
@@ -51,12 +53,14 @@ list* addToRight(list* tail)
 
 list* addToLeft(list* head)
 {
+	int minus = rand() % 3 + 1;
 	head->previous = (list*)malloc(sizeof(list));
 	head->previous->next = head;
 	head = head->previous;
 	head->previous = NULL;
-	head->value = rand() % 1300;
-	head->value /= 13.0;
+	head->value = (double)(rand()) / RAND_MAX * 100;
+	if (minus == 2)
+		head->value *= -1;
 
 	return head;
 }
@@ -211,10 +215,8 @@ int main()
 	head->previous = NULL;
 	tail->next = NULL;
 	tail->previous = head;
-	head->value = rand() % 1300 / 13;
-	head->value /= 13;
-	tail->value = rand() % 1300 / 13;
-	tail->value /= 13;
+	head->value = (double)(rand()) / RAND_MAX * 100;
+	tail->value = (double)(rand()) / RAND_MAX * 100;
 	list* right, * left;
 
 	while (1)

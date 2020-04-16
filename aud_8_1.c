@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <math.h>
-#define compare pow(10, -7)
+#define compare pow(10, -3)
 
 struct List
 {
@@ -18,9 +18,9 @@ void outputToRight(list* head)
 	while (head != NULL)
 	{
 		if (head->next != NULL)
-			printf("%.1lf -> ", head->value);
+			printf("%.4lf -> ", head->value);
 		else if (head->next == NULL)
-			printf("%.1lf.\n", head->value);
+			printf("%.4lf.\n", head->value);
 		head = head->next;
 	}
 }
@@ -30,9 +30,9 @@ void outputToLeft(list* tail)
 	while (tail != NULL)
 	{
 		if (tail->previous != NULL)
-			printf("%.1lf -> ", tail->value);
+			printf("%.3lf -> ", tail->value);
 		else if (tail->previous == NULL)
-			printf("%.1lf.\n", tail->value);
+			printf("%.3lf.\n", tail->value);
 		tail = tail->previous;
 	}
 }
@@ -42,7 +42,8 @@ list* addToRight(list* tail)
 	tail->next = (list*)malloc(sizeof(list));
 	tail->next->previous = tail;
 	tail = tail->next;
-	tail->value = rand() % 100;
+	tail->value = rand() % 1300;
+	tail->value /= 13.0;
 	tail->next = NULL;
 
 	return tail;
@@ -54,7 +55,8 @@ list* addToLeft(list* head)
 	head->previous->next = head;
 	head = head->previous;
 	head->previous = NULL;
-	head->value = rand() % 100;
+	head->value = rand() % 1300;
+	head->value /= 13.0;
 
 	return head;
 }
@@ -209,8 +211,10 @@ int main()
 	head->previous = NULL;
 	tail->next = NULL;
 	tail->previous = head;
-	head->value = rand() % 100;
-	tail->value = rand() % 100;
+	head->value = rand() % 1300 / 13;
+	head->value /= 13;
+	tail->value = rand() % 1300 / 13;
+	tail->value /= 13;
 	list* right, * left;
 
 	while (1)

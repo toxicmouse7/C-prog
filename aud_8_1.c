@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <math.h>
+#define compare pow(10, -7)
 
 struct List
 {
@@ -61,7 +63,7 @@ list* findByValue(list* head, double _value)
 {
 	while (head != NULL)
 	{
-		if (head->value == _value)
+		if (fabs(head->value - _value) < compare)
 		{
 			return head;
 		}

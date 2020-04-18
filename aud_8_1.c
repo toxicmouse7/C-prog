@@ -3,6 +3,7 @@
 #include <locale.h>
 #include <math.h>
 #define compare pow(10, -3)
+#define smallest pow(10, -10)
 
 struct List
 {
@@ -43,8 +44,10 @@ list* addToRight(list* tail, double right_rand, double left_rand)
 	tail->next = (list*)malloc(sizeof(list));
 	tail->next->previous = tail;
 	tail = tail->next;
-	tail->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
-	tail->value += (double)(rand()) / RAND_MAX * 1;
+	tail->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand) + smallest;
+	if (tail->value > 0)
+		tail->value += (double)(rand()) / RAND_MAX * 1;
+	else tail->value -= (double)(rand()) / RAND_MAX * 1;
 	tail->next = NULL;
 
 	return tail;
@@ -56,8 +59,10 @@ list* addToLeft(list* head, double right_rand, double left_rand)
 	head->previous->next = head;
 	head = head->previous;
 	head->previous = NULL;
-	head->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
-	head->value += (double)(rand()) / RAND_MAX * 1;
+	head->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand) + smallest;
+	if (head->value > 0)
+		head->value += (double)(rand()) / RAND_MAX * 1;
+	else head->value -= (double)(rand()) / RAND_MAX * 1;
 
 	return head;
 }
@@ -141,7 +146,7 @@ void deleteByValue(list* head, double _value)
 	}
 }
 
-void addBeforeCurrent(list* current)
+void addBeforeCurrent(list* current, double right_rand, double left_rand)
 {
 	if (current == NULL)
 	{
@@ -150,7 +155,10 @@ void addBeforeCurrent(list* current)
 	}
 	list* new = (list*)malloc(sizeof(list));
 	list* temp;
-	new->value = rand() % 100;
+	new->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand) + smallest;
+	if (new->value > 0)
+		new->value += (double)(rand()) / RAND_MAX * 1;
+	else new->value -= (double)(rand()) / RAND_MAX * 1;
 	temp = current->previous;
 	current->previous = new;
 	new->previous = temp;
@@ -158,12 +166,12 @@ void addBeforeCurrent(list* current)
 	temp->next = new;
 	printf("Ёлемент добавлен успешно\n");
 }
-void addBeforeValue(list* head, list* current)
+void addBeforeValue(list* head, list* current, double right_rand, double left_rand)
 {
 	double value;
 	scanf_s("%lf", &value);
 	current = findByValue(head, value);
-	addBeforeCurrent(current);
+	addBeforeCurrent(current, right_rand, left_rand);
 }
 
 //void deleteByPointer(list* current)
@@ -216,11 +224,11 @@ int main()
 	head->previous = NULL;
 	tail->next = NULL;
 	tail->previous = head;
-	head->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
+	head->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand) + smallest;
 	if (head->value > 0)
 		head->value += (double)(rand()) / RAND_MAX * 1;
 	else head->value -= (double)(rand()) / RAND_MAX * 1;
-	tail->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
+	tail->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand) + smallest;
 	if (tail->value > 0)
 		tail->value += (double)(rand()) / RAND_MAX * 1;
 	else tail->value -= (double)(rand()) / RAND_MAX * 1;
@@ -278,12 +286,12 @@ int main()
 		}
 		case '7':
 		{
-			addBeforeCurrent(current);
+			addBeforeCurrent(current, right_rand, left_rand);
 			break;
 		}
 		case '8': 
 		{
-			addBeforeValue(head, current);
+			addBeforeValue(head, current, right_rand, left_rand);
 			break;
 		}
 		case '9':

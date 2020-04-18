@@ -37,30 +37,27 @@ void outputToLeft(list* tail)
 	}
 }
 
-list* addToRight(list* tail)
+list* addToRight(list* tail, double right_rand, double left_rand)
 {
 	int minus = rand()%3 + 1;
 	tail->next = (list*)malloc(sizeof(list));
 	tail->next->previous = tail;
 	tail = tail->next;
-	tail->value = (double)(rand()) / RAND_MAX * 100;
-	if (minus == 2)
-		tail->value *= -1;
+	tail->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
+	tail->value += (double)(rand()) / RAND_MAX * 1;
 	tail->next = NULL;
 
 	return tail;
 }
 
-list* addToLeft(list* head)
+list* addToLeft(list* head, double right_rand, double left_rand)
 {
-	int minus = rand() % 3 + 1;
 	head->previous = (list*)malloc(sizeof(list));
 	head->previous->next = head;
 	head = head->previous;
 	head->previous = NULL;
-	head->value = (double)(rand()) / RAND_MAX * 100;
-	if (minus == 2)
-		head->value *= -1;
+	head->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
+	head->value += (double)(rand()) / RAND_MAX * 1;
 
 	return head;
 }
@@ -211,12 +208,22 @@ int main()
 	list* head = (list*)malloc(sizeof(list));
 	list* tail = (list*)malloc(sizeof(list));
 	list* current = NULL;
+	double right_rand, left_rand;
+	printf("¬ведите левую и правую границы рандома: ");
+	scanf_s("%lf%lf", &left_rand, &right_rand);
+	system("cls");
 	head->next = tail;
 	head->previous = NULL;
 	tail->next = NULL;
 	tail->previous = head;
-	head->value = (double)(rand()) / RAND_MAX * 100;
-	tail->value = (double)(rand()) / RAND_MAX * 100;
+	head->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
+	if (head->value > 0)
+		head->value += (double)(rand()) / RAND_MAX * 1;
+	else head->value -= (double)(rand()) / RAND_MAX * 1;
+	tail->value = (double)(rand() % (int)(right_rand - left_rand) + left_rand);
+	if (tail->value > 0)
+		tail->value += (double)(rand()) / RAND_MAX * 1;
+	else tail->value -= (double)(rand()) / RAND_MAX * 1;
 	list* right, * left;
 
 	while (1)
@@ -241,12 +248,12 @@ int main()
 		}
 		case '3':
 		{
-			tail = addToRight(tail);
+			tail = addToRight(tail, right_rand, left_rand);
 			break;
 		}
 		case '4':
 		{
-			head = addToLeft(head);
+			head = addToLeft(head, right_rand, left_rand);
 			break;
 		}
 		case '5':

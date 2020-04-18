@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <math.h>
-#include <time.h>
 #define compare pow(10, -3)
 
 struct List
@@ -38,30 +37,30 @@ void outputToLeft(list* tail)
 	}
 }
 
-list* addToRight(list* tail, double left_rand, double right_rand)
+list* addToRight(list* tail)
 {
-	int temp = rand() % 1001;
+	int minus = rand()%3 + 1;
 	tail->next = (list*)malloc(sizeof(list));
 	tail->next->previous = tail;
 	tail = tail->next;
-	if (temp <= 500)
-		tail->value = (double)(rand()) / RAND_MAX * right_rand;
-	else tail->value = (double)(rand()) / RAND_MAX * left_rand;
+	tail->value = (double)(rand()) / RAND_MAX * 100;
+	if (minus == 2)
+		tail->value *= -1;
 	tail->next = NULL;
 
 	return tail;
 }
 
-list* addToLeft(list* head, double left_rand, double right_rand)
+list* addToLeft(list* head)
 {
-	int temp = rand() % 1001;
+	int minus = rand() % 3 + 1;
 	head->previous = (list*)malloc(sizeof(list));
 	head->previous->next = head;
 	head = head->previous;
 	head->previous = NULL;
-	if (temp <= 500)
-		head->value = (double)(rand()) / RAND_MAX * right_rand;
-	else head->value = (double)(rand()) / RAND_MAX * left_rand;
+	head->value = (double)(rand()) / RAND_MAX * 100;
+	if (minus == 2)
+		head->value *= -1;
 
 	return head;
 }
@@ -152,12 +151,9 @@ void addBeforeCurrent(list* current)
 		printf("Текущий элемент не выбран\n");
 		return NULL;
 	}
-	int minus = rand() % 3 + 1;
 	list* new = (list*)malloc(sizeof(list));
 	list* temp;
-	new->value = (double)(rand()) / RAND_MAX * 100;
-	if (minus == 2)
-		new->value *= -1;
+	new->value = rand() % 100;
 	temp = current->previous;
 	current->previous = new;
 	new->previous = temp;
@@ -211,43 +207,16 @@ void splice(list* left, list* right, list* position)
 
 int main()
 {
-	srand(time(NULL));
 	setlocale(LC_ALL, "Russian");
 	list* head = (list*)malloc(sizeof(list));
 	list* tail = (list*)malloc(sizeof(list));
 	list* current = NULL;
-	double right_rand, left_rand;
-	int temp = rand() % 1001;
-	printf("Введите левую и правую границы рандома: ");
-	scanf_s("%lf%lf", &left_rand, &right_rand);
-	if (right_rand < left_rand)
-	{
-		printf("\nПравая граница не может быть меньше левой.\n");
-		exit(11);
-	}
-	system("cls");
 	head->next = tail;
 	head->previous = NULL;
 	tail->next = NULL;
 	tail->previous = head;
-	if (temp <= 500)
-	{
-		head->value = (double)(rand()) / RAND_MAX * right_rand;
-		while (head->value < left_rand)
-			head->value = fabs(right_rand - left_rand);
-	}
-	else 
-	{
-		head->value = (double)(rand()) / RAND_MAX * left_rand;
-		while (head->value < left_rand)
-			head->value = fabs(right_rand - left_rand);
-	}
-
-	temp = rand() % 1001;
-
-	if (temp <= 500)
-		tail->value = (double)(rand()) / RAND_MAX * right_rand;
-	else tail->value = (double)(rand()) / RAND_MAX * left_rand;
+	head->value = (double)(rand()) / RAND_MAX * 100;
+	tail->value = (double)(rand()) / RAND_MAX * 100;
 	list* right, * left;
 
 	while (1)
@@ -272,12 +241,12 @@ int main()
 		}
 		case '3':
 		{
-			tail = addToRight(tail, left_rand, right_rand);
+			tail = addToRight(tail);
 			break;
 		}
 		case '4':
 		{
-			head = addToLeft(head, left_rand, right_rand);
+			head = addToLeft(head);
 			break;
 		}
 		case '5':
